@@ -34,8 +34,13 @@ def get_chunk_data(chunk_url):
 #get all relevant data for each item in the list on IMDB    
 def get_data(item):
     title = get_title(item)
-    date = get_date(item)
-    return (title, get_id(item), get_poster_url(item), date, get_trailer_Yid(title, date))
+    if title:
+        try:
+            print('Processing: %s'%title)
+        except:
+            print("Processing: <can't print name>")
+        date = get_date(item)
+        return (title, get_id(item), get_poster_url(item), date, get_trailer_Yid(title, date))
     
 #get the relevant HTML nodes for the list items    
 def select_items(parser):
@@ -43,7 +48,9 @@ def select_items(parser):
     
 #get title from node    
 def get_title(item):
-    return item.select(title_selector)[0].text
+    title = item.select(title_selector)
+    if title:
+        return title[0].text
     
 #get IMDB unique ID for list item    
 def get_id(item):
@@ -63,7 +70,8 @@ def get_trailer_Yid(title, date):
     
 #extract Youtube unique ID from JSON Youtube API response    
 def json_to_Yid(api_json):
-    return api_json['feed']['entry'][0]['id']['$t'].split('/')[-1]
+    if 'entry' in api_json['feed']:
+        return api_json['feed']['entry'][0]['id']['$t'].split('/')[-1]
     
 #send request to Youtube API using movie title and year of release    
 def youtube_request(title, date):
@@ -92,8 +100,12 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         out = sys.stdout
     else:
+        if len(sys.argv) == 3:
+            start_params = range(int(sys.argv[-1]), 9901, 100)
+            print("query range is: %s to %s"%(int(sys.argv[-1]), 9901))
         out = open(sys.argv[1],'w')
     writer = csv.writer(out)
     for url in url_gen():
         for record in get_chunk_data(url):
-            writer.writerow(record)
+            if record:
+                writer.writerow(record)

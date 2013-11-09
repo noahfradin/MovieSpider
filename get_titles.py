@@ -21,7 +21,9 @@ item_selector = '.list_item'
 title_selector = '.info b a'
 poster_selector = 'img'
 date_selector = '.year_type'
-youtube_request_base = "https://gdata.youtube.com/feeds/api/videos?alt=json&q=%s&max-results=1"
+developer_key = "AI39si77TGz8ZGdl2ah7AToaONUcBJAlVHnJ0-ZywHlIfZxSnwmJoxlprnesylm8l3VBwHlKAzHWgCmrYCWpj2beJ7LTtwDaoQ"
+youtube_request_base = "https://gdata.youtube.com/feeds/api/videos?key=%s&alt=json&q=%%s&max-results=1"%developer_key
+print(youtube_request_base)
 start_params = range(1, 9901, 100)
 
 #get (title, IMBD ID, poster url, date, youtube ID) tuples

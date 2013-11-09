@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup as soup
 from json import loads as decode_json
 import csv
 
-all_films = "http://www.imdb.com/list/p9TV548tyOw/?start%s1&view=detail&sort=listorian:asc"
+all_films = "http://www.imdb.com/list/p9TV548tyOw/?start=%s&view=detail&sort=listorian:asc"
 poster_base = "http://www.imdb.com/title/%s/"
 item_selector = '.list_item'
 title_selector = '.info b a'

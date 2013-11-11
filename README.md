@@ -1,4 +1,4 @@
 MovieSpider
 ===========
 
-Movie crawler for trailerbot
+Movie crawler for trailerbot YHack project. 
